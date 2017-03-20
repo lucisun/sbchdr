@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-# tlucciano Mar 12 2017
+# tlucciano Mar 20 2017
 
 import csv
 import os,glob,sys,re
@@ -9,7 +9,6 @@ import MySQLdb
 import numpy as np
 import matplotlib.pyplot as plt
 import scipy
-#from pylab import *
 
 
 
