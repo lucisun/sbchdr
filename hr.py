@@ -1,7 +1,5 @@
 #!/usr/bin/python
 
-# tlucciano Mar 20 2017
-
 import csv
 import os,glob,sys,re
 from datetime import datetime
@@ -9,7 +7,7 @@ import MySQLdb
 import numpy as np
 import matplotlib.pyplot as plt
 import scipy
-
+from pylab import *
 
 
 def cls():
@@ -126,7 +124,7 @@ def display_system_data_over_days(dbinfo):
         plt.xlabel('Time',fontsize=8)
         plt.ylabel('CPU/MEM',fontsize=10)
         fig.autofmt_xdate(rotation=80)
-        fig.tight_layout()
+        #fig.tight_layout()
         plt.show()
     except:
         print("No Display")
@@ -666,9 +664,10 @@ def insert_temperature_data(dbinfo,mode):
                     cmdin = cur2.execute('INSERT INTO temperature(tstamp,datetime,vtype,description,temperature) VALUES("%s","%s", "%s","%s","%f")' % (TimeStamp,ConvertTS, vtype_in,desc,float(temp_in) ))
                     #print("cmdin: ", cmdin)
                     mydb2.commit()
-                    if ((count % 100) == 1):
-                        print(".  currently on record number %d." % (count))
-                    count+=1
+                    if mode != "A":
+                        if ((count % 100) == 1):
+                            print(".  currently on record number %d." % (count))
+                        count+=1
                 else:
                     if mode != "A":
                         print cmd
@@ -714,9 +713,10 @@ def insert_space_data(dbinfo,mode):
                     cmdin = cur2.execute('INSERT INTO space(tstamp,datetime,volumename,spaceused,spaceavailable) VALUES("%s","%s", "%s","%d","%d")' % (TimeStamp,ConvertTS, volname_in,int(spaceuse),int(spaceavail) ))
                     #print("cmdin: ", cmdin)
                     mydb2.commit()
-                    if ((count % 100) == 1):
-                        print(".  currently on record number %d." % (count))
-                    count+=1
+                    if mode != "A":
+                        if ((count % 100) == 1):
+                            print(".  currently on record number %d." % (count))
+                        count+=1
                 else:
                     if mode != "A":
                         print cmd
@@ -763,9 +763,10 @@ def insert_networkutil_data(dbinfo,mode):
                     cmdin = cur2.execute('INSERT INTO networkutil(tstamp,datetime,nuindex,rxutil,txutil) VALUES("%s","%s", "%d","%f","%f")' % (TimeStamp,ConvertTS, int(nuindx),float(rxuse),float(txuse) ))
                     #print("cmdin: ", cmdin)
                     mydb2.commit()
-                    if ((count % 100) == 1):
-                        print(".  currently on record number %d." % (count))
-                    count+=1
+                    if mode != "A":
+                        if ((count % 100) == 1):
+                            print(".  currently on record number %d." % (count))
+                        count+=1
                 else:
                     if mode != "A":
                         print cmd
@@ -837,7 +838,7 @@ def menu(cfgFile):
 ############################################################
 def main():
     cls()
-    cfgFile="/home/tluck/HDR/hdr.cfg"
+    cfgFile="/home/toml/HDR/hdr.cfg"
     dbinfo=[]
     dbinfo=readDBconfig(cfgFile) 
     try:
