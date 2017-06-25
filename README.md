@@ -9,7 +9,7 @@ linux# hr.py auto
 
 Example crontab entry:
 30 * * * * /home/tluck/HDR/hr.py auto 2>&1 
-You must create a database called sbchrd
+You must create a database called sbchdr
 - you can use the mysqldump file (the mysql db file) to import the db after the db is created.
 linux# mysql -u <username> -p<username_password> sbchdr < dumpfilename.sql 
 You must change the line in main that references the hdr.cfg file to your correct path
